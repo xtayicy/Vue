@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+		<script src="https://unpkg.com/vue@next"></script>
+	</head>
+
+	<body>
+		<div id="app" class="demo">
+		  <form v-on:submit.prevent="addNew">
+		    <input
+		      v-model="text"
+		      id="new-item"
+		      placeholder="例如：明天早上跑步"
+		    />
+		    <button>添加</button>
+		  </form>
+		  <ul>
+		    <item-component
+		      v-for="(item, index) in items"
+		      :key="item.id"
+		      :title="item.title"
+		      @remove="items.splice(index,1)"
+		    ></item-component>
+		  </ul>
+		</div>
+
+		<script>
+			const app = {
+			  data() {
+				return {
+					text: '',
+					items: [
+				        {
+				          id: 1,
+				          title: '看电影'
+				        },
+				        {
+				          id: 2,
+				          title: '吃饭'
+				        },
+				        {
+				          id: 3,
+				          title: '上 RUNOOB 学习'
+				        }
+				    ],
+				    nextItemId: 4
+				}
+			  },
+			  methods: {
+			    addNew() {
+			      this.items.push({
+			        id: this.nextItemId++,
+			        title: this.text
+			      })
+			      this.text = ''
+			    }
+			  }
+			}
+
+			const vue = Vue.createApp(app)
+			
+			vue.component('item-component', {
+			  template: `
+			    <li>
+			      {{ title }}
+			      <button @click="$emit('remove')">删除</button>
+			    </li>
+			  `,
+			  props: ['title'],
+			  emits: ['remove']
+			})
+			
+			vue.mount('#app')
+		</script>
+	</body>
+</html>
