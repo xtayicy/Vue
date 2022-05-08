@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+		<script src="https://unpkg.com/vue@next"></script>
+	</head>
+
+	<body>
+		<div id="app">
+		  <label for="r1">修改颜色</label><input type="checkbox" v-model="use" id="r1">
+		  <br><br>
+		  <div v-bind:class="{'class1': use}">
+			v-bind:class 指令
+		  </div>
+		    {{5+5}}<br>
+			{{ ok ? 'YES' : 'NO' }}<br>
+			{{ message.split('').reverse().join('') }}
+			<div v-bind:id="'list-' + id">菜鸟教程</div>
+			<p v-if="seen">现在你看到我了</p>
+			<ol>
+			  <li v-for="site in sites">
+			    {{ site.text }}
+			  </li>
+		    </ol>
+			<p><a v-bind:href="url">菜鸟教程</a></p>
+			<p>{{ message }}</p>
+			<input v-model="message">
+			<button v-on:click="reverseMessage">反转字符串</button>
+		</div>
+
+		<script>
+			const app  = {
+			  data() {
+				return {
+				  use: true,
+				  ok: false,
+				  message: 'RUNOOB!!',
+				  id: 1,
+				  seen: true,
+				  sites: [
+					{ text: 'Google' },
+					{ text: 'Runoob' },
+					{ text: 'Taobao' }
+				  ],
+				  url: 'https://www.runoob.com'
+				}
+			  },
+			  methods: {
+				reverseMessage() {
+				  this.message = this.message
+					.split('')
+					.reverse()
+					.join('')
+				}
+			  }
+			}
+
+			Vue.createApp(app).mount('#app')
+		</script>
+	</body>
+</html>
